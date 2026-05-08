@@ -337,7 +337,7 @@
      <h1>Publish StreamBros Videos to <span>TikTok</span></h1>
      <p>
       StreamBros Poster is a content publishing interface used to prepare short-form videos, authorize a TikTok
-      Sandbox account, and publish through TikTok's Content Posting API using the video.publish scope.
+      Sandbox account, and upload videos through TikTok's Content Posting API using the video.upload scope.
      </p>
      <a class="btn" href="#publish">Start TikTok Sandbox Demo</a>
     </div>
@@ -372,17 +372,17 @@
       </div>
 
       <div class="field">
-       <label>Publishing permission</label>
+       <label>Upload permission</label>
        <select>
-        <option>video.publish - TikTok Sandbox</option>
+        <option>video.upload - TikTok Sandbox</option>
        </select>
       </div>
 
-      <button id="publish-tiktok-demo" class="btn" type="button" style="width:100%">Publish to TikTok</button>
+      <button id="publish-tiktok-demo" class="btn" type="button" style="width:100%">Upload to TikTok Draft</button>
 
       <div id="poster-demo-status" class="status">
        <span>✓</span>
-       <span>Ready to connect TikTok Sandbox and demonstrate the video.publish posting flow.</span>
+       <span>Ready to connect TikTok Sandbox and demonstrate the video.upload draft flow.</span>
       </div>
      </div>
 
@@ -413,8 +413,8 @@
        <div class="step">
         <div class="step-number">4</div>
         <div>
-         <strong>Publish through TikTok API</strong>
-         <p>StreamBros Poster initializes the direct post and uploads the video file to TikTok.</p>
+         <strong>Upload through TikTok API</strong>
+         <p>StreamBros Poster initializes the inbox upload and uploads the video file to TikTok for final editing.</p>
         </div>
        </div>
       </div>
@@ -422,7 +422,7 @@
       <div class="pills">
        <span class="pill">TikTok Login</span>
        <span class="pill">Content Posting API</span>
-       <span class="pill">video.publish</span>
+       <span class="pill">video.upload</span>
        <span class="pill">Sandbox target user</span>
       </div>
      </div>
@@ -451,12 +451,12 @@
 
    connectTikTokDemo.addEventListener("click", () => {
     posterDemoStatus.innerHTML =
-     "<span>✓</span><span>TikTok Sandbox connected. The sandbox target user has authorized video.publish.</span>";
+     "<span>✓</span><span>TikTok Sandbox connected. The sandbox target user has authorized video.upload.</span>";
    });
 
    publishTikTokDemo.addEventListener("click", () => {
     posterDemoStatus.innerHTML =
-     "<span>✓</span><span>Sandbox post initialized with Content Posting API and video.publish scope.</span>";
+     "<span>✓</span><span>Sandbox draft upload initialized with Content Posting API and video.upload scope.</span>";
    });
   </script>
  </body>
