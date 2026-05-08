@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>StreamBros Poster - TikTok Callback</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="https://i.imgur.com/ZM1PJ60.png" />
+  <style>
+   body {
+    margin: 0;
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    background: #0f172a;
+    color: #fff;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+   }
+   main {
+    width: min(720px, calc(100% - 32px));
+    background: #111827;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 16px;
+    padding: 28px;
+   }
+   .logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #22c55e;
+    font-size: 1.4rem;
+    font-weight: 800;
+    margin-bottom: 18px;
+   }
+   .logo img {
+    width: 32px;
+    height: 32px;
+   }
+   p {
+    color: #94a3b8;
+   }
+   input {
+    width: 100%;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 10px;
+    background: #1e293b;
+    color: #fff;
+    padding: 12px;
+    font: inherit;
+   }
+   button {
+    margin-top: 12px;
+    border: 0;
+    border-radius: 999px;
+    background: #22c55e;
+    color: #fff;
+    padding: 12px 20px;
+    font: inherit;
+    font-weight: 800;
+    cursor: pointer;
+   }
+   .error {
+    color: #fecaca;
+    background: rgba(248, 113, 113, 0.12);
+    border: 1px solid rgba(248, 113, 113, 0.35);
+    border-radius: 10px;
+    padding: 12px;
+   }
+  </style>
+ </head>
+ <body>
+  <main>
+   <div class="logo">
+    <img src="https://i.imgur.com/Bdb6OcX.png" alt="StreamBros Poster logo" />
+    StreamBros Poster
+   </div>
+   <h1>TikTok Authorization Code</h1>
+   <p>Copy this code, then paste it into the local StreamBros Poster tester at <strong>http://localhost:8080</strong>.</p>
+   <div id="content"></div>
+  </main>
+
+  <script>
+   const params = new URLSearchParams(window.location.search);
+   const code = params.get("code");
+   const error = params.get("error");
+   const content = document.getElementById("content");
+
+   if (code) {
+    content.innerHTML = `
+     <input id="code" value="${code.replace(/"/g, "&quot;")}" readonly />
+     <button type="button" onclick="navigator.clipboard.writeText(document.getElementById('code').value)">Copy Code</button>
+    `;
+   } else {
+    content.innerHTML = `<div class="error">No authorization code found.${error ? " Error: " + error : ""}</div>`;
+   }
+  </script>
+ </body>
+</html>
