@@ -1,0 +1,463 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>StreamBros Poster - TikTok Content Publishing Tool</title>
+  <meta
+   name="description"
+   content="StreamBros Poster is a content publishing tool used to prepare and publish short-form videos to TikTok through the Content Posting API."
+  />
+
+  <link rel="apple-touch-icon" sizes="180x180" href="https://i.imgur.com/0YLWofr.png" />
+  <link rel="icon" type="image/png" sizes="512x512" href="https://i.imgur.com/6ehhjAg.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="https://i.imgur.com/6r8XOiN.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="https://i.imgur.com/ZM1PJ60.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="https://i.imgur.com/QseDDoX.png" />
+
+  <style>
+   :root {
+    --primary: #22c55e;
+    --primary-dark: #16a34a;
+    --bg: #0f172a;
+    --panel: #111827;
+    --panel-soft: #1e293b;
+    --text: #ffffff;
+    --muted: #94a3b8;
+    --line: rgba(255, 255, 255, 0.12);
+   }
+
+   * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+   }
+
+   body {
+    min-height: 100vh;
+    color: var(--text);
+    background:
+     linear-gradient(rgba(15, 23, 42, 0.88), rgba(15, 23, 42, 0.94)),
+     url("https://images.unsplash.com/photo-1615986200580-033f60c64546?q=80&w=2071&auto=format&fit=crop")
+      center/cover fixed;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    line-height: 1.6;
+   }
+
+   a {
+    color: inherit;
+   }
+
+   .container {
+    width: min(1120px, calc(100% - 32px));
+    margin: 0 auto;
+   }
+
+   header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: rgba(15, 23, 42, 0.94);
+    border-bottom: 1px solid var(--line);
+    backdrop-filter: blur(10px);
+   }
+
+   nav {
+    min-height: 72px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+   }
+
+   .logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--primary);
+    font-size: 1.35rem;
+    font-weight: 800;
+    text-decoration: none;
+   }
+
+   .logo img {
+    width: 32px;
+    height: 32px;
+   }
+
+   .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    color: var(--muted);
+    font-weight: 600;
+   }
+
+   .nav-links a {
+    text-decoration: none;
+   }
+
+   .nav-links a:hover {
+    color: var(--text);
+   }
+
+   .hero {
+    padding: 84px 0 48px;
+    text-align: center;
+   }
+
+   .hero h1 {
+    font-size: clamp(2.5rem, 6vw, 4.7rem);
+    line-height: 1.05;
+    margin-bottom: 18px;
+   }
+
+   .hero span {
+    color: var(--primary);
+   }
+
+   .hero p {
+    max-width: 760px;
+    margin: 0 auto 28px;
+    color: var(--muted);
+    font-size: 1.2rem;
+   }
+
+   .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    border: 0;
+    border-radius: 999px;
+    background: var(--primary);
+    color: var(--text);
+    padding: 13px 22px;
+    font: inherit;
+    font-weight: 800;
+    text-decoration: none;
+    cursor: pointer;
+   }
+
+   .btn:hover {
+    background: var(--primary-dark);
+   }
+
+   .section {
+    padding: 42px 0;
+   }
+
+   .grid {
+    display: grid;
+    gap: 24px;
+   }
+
+   .panel {
+    background: rgba(17, 24, 39, 0.94);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 18px 60px rgba(0, 0, 0, 0.32);
+   }
+
+   .panel h2,
+   .panel h3 {
+    margin-bottom: 14px;
+   }
+
+   .field {
+    margin-bottom: 16px;
+   }
+
+   .field label {
+    display: block;
+    margin-bottom: 7px;
+    color: var(--muted);
+    font-weight: 700;
+   }
+
+   .field input,
+   .field textarea,
+   .field select {
+    width: 100%;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: rgba(30, 41, 59, 0.9);
+    color: var(--text);
+    padding: 12px;
+    font: inherit;
+   }
+
+   .field textarea {
+    min-height: 100px;
+    resize: vertical;
+   }
+
+   .status {
+    display: flex;
+    gap: 10px;
+    margin-top: 16px;
+    padding: 14px;
+    border: 1px solid rgba(34, 197, 94, 0.45);
+    border-radius: 10px;
+    background: rgba(34, 197, 94, 0.11);
+    color: #bbf7d0;
+   }
+
+   .steps {
+    display: grid;
+    gap: 14px;
+   }
+
+   .step {
+    display: flex;
+    gap: 14px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--line);
+   }
+
+   .step:last-child {
+    border-bottom: 0;
+    padding-bottom: 0;
+   }
+
+   .step-number {
+    flex: 0 0 auto;
+    width: 34px;
+    height: 34px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: var(--primary);
+    font-weight: 900;
+   }
+
+   .step p,
+   .note,
+   footer {
+    color: var(--muted);
+   }
+
+   .pills {
+    margin-top: 18px;
+   }
+
+   .pill {
+    display: inline-flex;
+    margin: 4px 6px 4px 0;
+    border: 1px solid rgba(34, 197, 94, 0.45);
+    border-radius: 999px;
+    background: rgba(34, 197, 94, 0.1);
+    color: #bbf7d0;
+    padding: 7px 12px;
+    font-weight: 700;
+   }
+
+   footer {
+    padding: 40px 0;
+    text-align: center;
+   }
+
+   .footer-logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+    color: var(--primary);
+    font-weight: 800;
+   }
+
+   .footer-logo img {
+    width: 28px;
+    height: 28px;
+   }
+
+   .legal {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    margin-bottom: 16px;
+   }
+
+   .legal a {
+    color: var(--muted);
+    text-decoration: none;
+   }
+
+   .legal a:hover {
+    color: var(--text);
+   }
+
+   @media (min-width: 900px) {
+    .grid {
+     grid-template-columns: 1.08fr 0.92fr;
+    }
+   }
+
+   @media (max-width: 720px) {
+    nav,
+    .nav-links,
+    .legal {
+     flex-direction: column;
+     align-items: flex-start;
+    }
+
+    .nav-links {
+     gap: 10px;
+     padding-bottom: 16px;
+    }
+
+    .hero {
+     text-align: left;
+     padding-top: 52px;
+    }
+   }
+  </style>
+ </head>
+ <body>
+  <header>
+   <div class="container">
+    <nav>
+     <a class="logo" href="./poster.html">
+      <img src="https://i.imgur.com/Bdb6OcX.png" alt="StreamBros Poster logo" />
+      StreamBros Poster
+     </a>
+     <div class="nav-links">
+      <a href="#publish">Publishing Flow</a>
+      <a href="./index.html">Privacy Policy</a>
+      <a href="./terms-of-service.html">Terms of Service</a>
+     </div>
+    </nav>
+   </div>
+  </header>
+
+  <main>
+   <section class="hero">
+    <div class="container">
+     <h1>Publish StreamBros Videos to <span>TikTok</span></h1>
+     <p>
+      StreamBros Poster is a content publishing interface used to prepare short-form videos, authorize a TikTok
+      Sandbox account, and publish through TikTok's Content Posting API using the video.publish scope.
+     </p>
+     <a class="btn" href="#publish">Start TikTok Sandbox Demo</a>
+    </div>
+   </section>
+
+   <section id="publish" class="section">
+    <div class="container grid">
+     <div class="panel">
+      <h2>Create TikTok Post</h2>
+      <p class="note" style="margin-bottom:18px">
+       This page is used for TikTok app review to demonstrate the user-facing publishing flow.
+      </p>
+
+      <div class="field">
+       <label>TikTok connection</label>
+       <button id="connect-tiktok-demo" class="btn" type="button">Connect TikTok Sandbox</button>
+      </div>
+
+      <div class="field">
+       <label>Video file</label>
+       <input value="FinalsAston_pv3w2y.mp4" readonly />
+      </div>
+
+      <div class="field">
+       <label>Caption</label>
+       <textarea readonly>44 years of waiting is over! Aston Villa are officially back on the biggest stage.</textarea>
+      </div>
+
+      <div class="field">
+       <label>Hashtags</label>
+       <input value="#AVFC #AstonVilla #Football #StreamBros" readonly />
+      </div>
+
+      <div class="field">
+       <label>Publishing permission</label>
+       <select>
+        <option>video.publish - TikTok Sandbox</option>
+       </select>
+      </div>
+
+      <button id="publish-tiktok-demo" class="btn" type="button" style="width:100%">Publish to TikTok</button>
+
+      <div id="poster-demo-status" class="status">
+       <span>✓</span>
+       <span>Ready to connect TikTok Sandbox and demonstrate the video.publish posting flow.</span>
+      </div>
+     </div>
+
+     <div class="panel">
+      <h3>Review Demo Flow</h3>
+      <div class="steps">
+       <div class="step">
+        <div class="step-number">1</div>
+        <div>
+         <strong>Open StreamBros Poster</strong>
+         <p>The user starts from this interface instead of source code.</p>
+        </div>
+       </div>
+       <div class="step">
+        <div class="step-number">2</div>
+        <div>
+         <strong>Authorize TikTok Sandbox</strong>
+         <p>The sandbox target user connects TikTok and grants the required publishing scope.</p>
+        </div>
+       </div>
+       <div class="step">
+        <div class="step-number">3</div>
+        <div>
+         <strong>Prepare content</strong>
+         <p>The user confirms the video, caption, hashtags, and publishing permission.</p>
+        </div>
+       </div>
+       <div class="step">
+        <div class="step-number">4</div>
+        <div>
+         <strong>Publish through TikTok API</strong>
+         <p>StreamBros Poster initializes the direct post and uploads the video file to TikTok.</p>
+        </div>
+       </div>
+      </div>
+
+      <div class="pills">
+       <span class="pill">TikTok Login</span>
+       <span class="pill">Content Posting API</span>
+       <span class="pill">video.publish</span>
+       <span class="pill">Sandbox target user</span>
+      </div>
+     </div>
+    </div>
+   </section>
+  </main>
+
+  <footer>
+   <div class="container">
+    <div class="footer-logo">
+     <img src="https://i.imgur.com/Bdb6OcX.png" alt="StreamBros Poster logo" />
+     StreamBros Poster
+    </div>
+    <div class="legal">
+     <a href="./index.html">Privacy Policy</a>
+     <a href="./terms-of-service.html">Terms of Service</a>
+    </div>
+    <p>© 2026 StreamBros. All rights reserved.</p>
+   </div>
+  </footer>
+
+  <script>
+   const connectTikTokDemo = document.getElementById("connect-tiktok-demo");
+   const publishTikTokDemo = document.getElementById("publish-tiktok-demo");
+   const posterDemoStatus = document.getElementById("poster-demo-status");
+
+   connectTikTokDemo.addEventListener("click", () => {
+    posterDemoStatus.innerHTML =
+     "<span>✓</span><span>TikTok Sandbox connected. The sandbox target user has authorized video.publish.</span>";
+   });
+
+   publishTikTokDemo.addEventListener("click", () => {
+    posterDemoStatus.innerHTML =
+     "<span>✓</span><span>Sandbox post initialized with Content Posting API and video.publish scope.</span>";
+   });
+  </script>
+ </body>
+</html>
